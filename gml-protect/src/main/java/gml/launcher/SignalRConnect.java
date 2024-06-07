@@ -65,12 +65,14 @@ public class SignalRConnect {
 
         hubConnection.on("KickUser", (userName, reason) -> {
             Server server = minecraftPlugin.getServer();
+            Player player = server.getPlayer(userName);
+            
+            if (player != null) {
+                server.getScheduler().runTask(minecraftPlugin, () -> {
+                    player.kickPlayer(reason);
+                });
+            }
 
-            server.getScheduler().runTask(minecraftPlugin, () -> {
-
-                Objects.requireNonNull(server.getPlayer(userName)).kickPlayer(reason);
-
-            });
 
         }, String.class, String.class);
     }
