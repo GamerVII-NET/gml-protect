@@ -1,5 +1,6 @@
 package gml.launcher.plugin;
 
+import gml.launcher.SignalRConnect;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -9,19 +10,21 @@ import java.util.logging.Logger;
 
 public class PlayerJoinListener implements Listener {
     private final Logger logger;
+    private final SignalRConnect signalRManager;
 
-    public PlayerJoinListener(Logger logger) {
+    public PlayerJoinListener(Logger logger, SignalRConnect signalRManager) {
         this.logger = logger;
+        this.signalRManager = signalRManager;
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        logger.info(event.getPlayer().getName() + " joined the game");
+        signalRManager.onJoin(event.getPlayer().getName());
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        logger.info(event.getPlayer().getName() + " left the game");
+        signalRManager.onLeft(event.getPlayer().getName());
     }
 
     

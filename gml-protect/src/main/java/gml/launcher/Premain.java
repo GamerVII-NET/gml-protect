@@ -23,6 +23,6 @@ public class Premain {
     }
     
     private static void startSignalRConnect(String[] parts) throws Exception {
-        signalRConnect = new SignalRConnect(parts[0], parts[1]);
+        //signalRConnect = new SignalRConnect(this, parts[0], parts[1]);
     }
 }
